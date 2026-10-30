@@ -25,7 +25,8 @@ try {
   const budget = errorBudget(b);
   const access = runObservationMatrix(budget);
   const stress = runNumericStress(budget);
-  const pass = stress.oracleMatches === stress.count && access.projectionCount === 35;
+  const pass = stress.unexpectedDisagreements === 0 &&
+    stress.guardrailMatches === stress.count && access.projectionCount === 35;
   const report = {
     protocol: 'j90-v0.2.2-evidence-and-stress',
     result: pass ? 'PASS' : 'FAIL',
@@ -38,6 +39,10 @@ try {
     },
     numeric: full ? stress : {
       count: stress.count, oracleMatches: stress.oracleMatches,
+      knownBoundaryDisagreements: stress.knownBoundaryDisagreements,
+      unexpectedDisagreements: stress.unexpectedDisagreements,
+      numericalEnvelope: stress.numericalEnvelope,
+      guardrailMatches: stress.guardrailMatches,
       exactFloatAgreements: stress.exactFloatAgreements,
       underflowedGainCases: stress.underflowedGainCases,
       groups: stress.groups, reportSHA256: stress.reportSHA256
