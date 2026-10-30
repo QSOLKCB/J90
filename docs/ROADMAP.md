@@ -25,11 +25,19 @@
 - Deterministic JSON report with SHA-256 manifest/report receipts. Node's JavaScript-specific JSON canonicalization remains authoritative for emitted checkpoints.
 - One test-gated existing GitHub Pages workflow configures Python 3.12 and runs cross-runtime parity; public site remains unchanged.
 
-### v0.2.2+ — remaining adversarial work
+### v0.2.2 — observer access, provenance limits and float64 boundaries (this PR)
 
-- Controlled observation-access matrix with separate sensors, timestamps and event provenance.
-- Extended cross-platform differential runs and intentionally adversarial rounding/underflow sweeps; define any cross-language canonical JSON specification before implementing Python-issued checkpoints.
-- Larger boundary sweeps and independent published evidence archives.
+- Seven existing null scenarios evaluated under five explicit channel-access profiles (35 projections). No hidden sensor or elapsed-time access.
+- Source-labelled synthetic clock/sensor/record events with strict sequential SHA-256 integrity chain, rejection of tampering/reordering/malformed inputs, and a test proving that recomputed hashes do **not** authenticate forged assertions.
+- Deterministic 450-case float64 sweep crossing three amplitude regimes, six frequencies, five dampings and five gap durations; conventional and exact-zero tolerance comparisons, underflow classification and report checksums.
+- Six additional independent Node/Python replay stress scenarios (24 segments, 30 checkpoints, 84 comparisons), deliberately separate from the original v0.2.1 corpus.
+- CLI `npm run evidence`, documentation and test-gated CI; browser site unchanged.
+
+### v0.2.3+ — deferred research
+
+- Real multi-platform/OS differential benchmarks with published environment provenance; do not infer global portability from Ubuntu CI.
+- Explicit external measurement ingestion with authenticated source identity if a trust system is ever needed. SHA-256 chains alone cannot establish authenticity.
+- Broader error-budget sensitivity and versioned reproducibility archives; first specify cross-language canonical JSON before supporting Python-issued checkpoints.
 
 ## v0.3.x — nonlinear comparison
 
