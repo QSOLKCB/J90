@@ -61,8 +61,17 @@
 - Three fixed cross-runtime Python grid comparisons, endian-specified grid and canonical report SHA-256 receipts.
 - Separate test-gated interactive Pages module and scientific interpretation protocol.
 
-### v0.3.3+ — future
-- Consolidation, convergence analysis at varying zoom scales and independently archived numerical evidence; no new physical claims.
+### v0.3.3 — nonlinear evidence consolidation (this PR)
+- Deterministic Mandelbrot and Julia parameter studies across three powers-of-two-related viewport scales and 48/96/160 iteration caps (18 grids).
+- Budget monotonicity: a point once escaped must retain its exact recorded escape iteration as the cap increases; newly escaping points are counted separately.
+- Same-location comparisons across zoom scales use explicit aligned pixel coordinates, count Float64 drift and only interpret *exactly equal* complex coordinates as the same sample.
+- Independent Python stdlib grid comparison at all 18 settings, strict identity/schema checking, explicit iteration disagreement counts.
+- Source-code SHA-256 receipts, explicit uint16 little-endian image hashes and deterministic manifest/checksum bundles; downloadable as **temporary** CI artifacts, not a claimed durable publication.
+- Regression tests and existing Pages workflow gate; browser mathematical models and v1 checkpoint format unchanged.
+
+### v0.3.4+ — optional follow-on
+- Independent platform/runtime repetitions, numerical uncertainty envelopes and a curated Zenodo-ready evidence release (requires an explicit user decision to publish).
+- No expansion of physical or consciousness claims on mathematical software output alone.
 
 ## v0.4.x — dimensional-transposition claims
 

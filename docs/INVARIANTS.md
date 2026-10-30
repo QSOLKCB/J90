@@ -20,6 +20,8 @@
 
 **Precision zoom:** Accept finite bounded viewport parameters and distinguishable adjacent Float64 pixel coordinates only. An approximate ULP spacing indicator is not a rigorous propagated error interval. Adaptive iteration caps and work budgets are mandatory. Quarter-pixel differences are numerical sampling sensitivity, not proof of chaos. Hash pixel buffers in explicitly specified little-endian encoding and never equate checksums with trusted evidence.
 
+**Nonlinear consolidation:** Raising the iteration cap cannot change an escape iteration already observed at a lower cap; any violation fails closed. Non-escape remains finite-budget uncertainty. Different zoom scales sample different points, so same-point comparisons require explicitly matched pixel coordinates; count non-identical Float64 positions rather than treating near matches as equal. Keep independent Python divergences and fixed input/protocol versions visible. SHA-256 receipts include hashes of source code and little-endian pixel grids, not signatures of source authenticity. Reproducible workflow artifacts are temporary, not durable archives.
+
 **Evidence:** Distinguish identities, simulation outcomes, conjectures, and externally measured empirical evidence. Null comparisons are mandatory. Reproducing a known identity does not support an extraordinary inference.
 
 **Research and ethics:** No attribution of consciousness, sentience, or agency without independently defined operational evidence. Cite inspirations accurately; do not imply external endorsement.

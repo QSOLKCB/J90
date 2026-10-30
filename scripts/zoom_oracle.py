@@ -56,7 +56,10 @@ def grid(item):
     for iy in range(h):
         for ix in range(w):
             px = centre[0] + ((ix + 0.5 - w / 2) * span / w)
-            py = centre[1] + ((h / 2 - iy - 0.5) * span / w)
+            # Match the documented renderer's vertical sample arithmetic.
+            # Algebraically equivalent simplifications can round differently.
+            vertical_span = span * h / w
+            py = centre[1] + ((h / 2 - iy - 0.5) * vertical_span / h)
             if abs(px) > 4 or abs(py) > 4:
                 invalid("grid exceeds domain")
             if model == "mandelbrot":

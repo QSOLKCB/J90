@@ -59,6 +59,24 @@ jobs:
       - name: Smoke-test independent precision zoom experiment
         run: node src/zoom-cli.mjs > /dev/null
 
+      - name: Consolidate nonlinear evidence and verify Python grid parity
+        run: node src/consolidate-cli.mjs --out evidence-v0.3.3 > /dev/null
+
+      - name: Record CI environment provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'node=%s\npython=%s\nos=%s\narch=%s\n'             "$(node --version)" "$(python3 --version)" "$(uname -s)" "$(uname -m)"             > evidence-v0.3.3/environment.txt
+          (cd evidence-v0.3.3 && sha256sum environment.txt >> SHA256SUMS.txt && sha256sum -c SHA256SUMS.txt)
+
+      - name: Upload temporary nonlinear evidence archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: j90-nonlinear-evidence-v0.3.3
+          path: evidence-v0.3.3/
+          retention-days: 30
+          if-no-files-found: error
+
       - name: Assemble minimal Pages artifact
         shell: bash
         run: |
