@@ -24,9 +24,11 @@ function modeCheck(mode) {
 }
 
 // This is z -> z² + c, NOT multiplication by i.
-export function quadraticStep(z, c) {
-  const a = boundedComplex(z, 'z'), b = boundedComplex(c, 'c');
+function quadraticUnchecked(a, b) {
   return state(a.x * a.x - a.y * a.y + b.x, 2 * a.x * a.y + b.y);
+}
+export function quadraticStep(z, c) {
+  return quadraticUnchecked(boundedComplex(z, 'z'), boundedComplex(c, 'c'));
 }
 export function complexRotate90(value) {
   return rotate90(boundedComplex(value, 'z'));
@@ -49,7 +51,7 @@ export function escapeTime({ model, point, c = JULIA_DEFAULT, maxIterations = 80
     }
     if (k === maxIterations) break;
     // Prior norm check ensures intermediate magnitudes are safely small.
-    z = quadraticStep(z, parameter);
+    z = quadraticUnchecked(z, parameter);
   }
   return { model, escaped: false, iterations: maxIterations,
     classification: 'not-escaped-within-budget', final: z };
