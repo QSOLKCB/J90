@@ -11,9 +11,18 @@
 
 ## v0.2.x — adversarial controls
 
-- Formal null-model registry, analytical oracle and boundary sweeps.
-- Repeated checkpoint/resume across different runtimes, rounding/error budgets.
-- Paired experiments with an external timestamp, sensor input and observable memory; specify who has access to which data.
+### v0.2.0 — implemented in this PR
+
+- Executable seven-case null registry, independent scalar analytical oracle and fixed 24-case boundary sweep.
+- Explicit clock, sensor and recorded-memory inputs, with per-channel evidence and strict validation.
+- Declared absolute/relative numeric comparison budgets and fail-closed control report CLI.
+- Interactive browser challenge panel, and test-gated Pages deployment.
+
+### v0.2.1+ — not yet implemented
+
+- Repeated checkpoint/resume across independent runtimes; document runtime-specific float and JSON behaviour.
+- Controlled observation-access matrix with separate sensors, timestamps and event provenance.
+- Larger boundary sweeps, error-budget sensitivity and versioned evidence receipts.
 
 ## v0.3.x — nonlinear comparison
 

@@ -35,3 +35,7 @@ Reports are serialized to stdout, with errors to stderr and a nonzero exit code.
 ## Limitations
 
 This is a deliberately small counterexample/control laboratory. Distinctions between mathematical operators such as Fourier transform, Hodge duality, and Hopf fibrations cannot be inferred from common "90°" terminology. Future formalizations must specify domains, codomains, inverses, invariant quantities, and failure cases separately.
+
+## v0.2.0 adversarial extension
+
+The [separate protocol](ADVERSARIAL.md) adds a fixed null registry, independent scalar prediction and explicitly supplied external observations. The v1 checkpoint experiment is unchanged.

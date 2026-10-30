@@ -50,6 +50,32 @@
         <p><strong>Continued arm:</strong> dynamics evolve during the gap. Different state is possible, not guaranteed; phase can alias. An independent clock reveals the specified gap.</p>
         <p class="verdict" id="verdict" aria-live="polite"></p>
       </div>
+      <div class="panel adversarial-panel">
+        <div class="panel-heading"><span><b>05</b> ADVERSARIAL NULL CONTROLS</span><span class="tiny">v0.2.0 / FALSIFICATION FIRST</span></div>
+        <div class="challenge-layout">
+          <div>
+            <label class="challenge-label" for="control-case">Choose a counterexample</label>
+            <select id="control-case">
+              <option value="zero-gap">No interruption</option>
+              <option value="zero-state">Zero-amplitude system</option>
+              <option value="static">Static system</option>
+              <option value="phase-alias">Full-turn phase alias</option>
+              <option value="quarter-turn">Quarter-turn difference</option>
+              <option value="pure-decay">Damping without rotation</option>
+              <option value="generic">Rotating and damping</option>
+            </select>
+            <p id="control-description" class="challenge-description">Select a model to inspect its prediction.</p>
+            <p class="hint challenge-hint">The reference is a separate trigonometric oracle. Comparing it with simulation tests our implementation, not a hypothesis of consciousness.</p>
+          </div>
+          <div class="challenge-result" aria-live="polite">
+            <div><span>Simulated state distance</span><strong id="control-observed">—</strong></div>
+            <div><span>Analytical prediction</span><strong id="control-expected">—</strong></div>
+            <div><span>Absolute residual</span><strong id="control-error">—</strong></div>
+            <div><span>Result</span><strong id="control-status">—</strong></div>
+            <p id="control-meaning" class="challenge-note"></p>
+          </div>
+        </div>
+      </div>
     </section>
     <footer>INDEPENDENT EXPERIMENT • INSPIRED BY ROBERT DUMONT (@VOLTARDARK) • <a href="./docs/ATTRIBUTION.md">ATTRIBUTION &amp; LIMITS</a> • NO CONSCIOUSNESS CLAIM</footer>
   </main>

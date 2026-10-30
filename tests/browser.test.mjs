@@ -56,6 +56,15 @@ test('fractional phase accumulates at 144 Hz and 240 Hz, with manual edits and p
   try {
     await import('../src/browser.mjs');
     assert.equal(phaseText(), 45);
+    // v0.2 controls are selectable while keeping the v0.1 animation responsive.
+    assert.equal(getElement('control-status').textContent, 'ORACLE MATCH');
+    getElement('control-case').value = 'quarter-turn';
+    getElement('control-case').emit('change');
+    assert.equal(getElement('control-status').textContent, 'ORACLE MATCH');
+    assert.ok(getElement('control-meaning').textContent.includes('state difference'));
+    getElement('control-case').value = 'phase-alias';
+    getElement('control-case').emit('change');
+    assert.ok(getElement('control-meaning').textContent.includes('null case'));
     animateButton.emit('click');
     for (let i = 0; i <= 144; i++) frame(i * 1000 / 144);
     assert.ok(Math.abs(phaseText() - 105) < 0.11,
