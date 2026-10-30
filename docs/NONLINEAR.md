@@ -14,7 +14,7 @@ For **Mandelbrot**, set z₀=0 and vary parameter c across the plane. For **Juli
 
 The escape condition uses the conservative radius `max(2, |c|+1)`, evaluated after each update, or at step zero for an already-outside Julia starting point. The count records how many quadratic iterations occurred before detection. Radius 2 is sufficient for standard low-magnitude parameters; for larger |c| the stricter adaptive radius prevents incorrectly classifying transient excursions as proven divergence. The computed escape criterion is sufficient for divergence in this quadratic family, but finite-budget non-escape never proves membership.
 
-If no escape occurs before the configured limit, the classification is **not-escaped-within-budget**, *not* inside the set. Numerical underflow, long transients, phase aliasing, and small-scale precision are limitations of finite float64 computation.
+If no escape occurs before the configured limit, the classification is **not-escaped-within-budget**, *not* inside the set. Grids use a dedicated 65535 sentinel for this classification; escapes at exactly the final allowed iteration retain their iteration count and are displayed as escaped. Numerical underflow, long transients, phase aliasing, and small-scale precision are limitations of finite float64 computation.
 
 Allowed inputs are finite with components in [-4,4]; max iterations 1..512; viewport dimensions at most 320×240; span 0..6 (exclusive at zero). Grid order is row-major, pixel centers sampled at half-pixel offsets, with the imaginary coordinate increasing upward. No random sampling or network requests.
 
