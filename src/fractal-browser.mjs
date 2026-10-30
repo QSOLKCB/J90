@@ -1,7 +1,7 @@
 // Independent, deterministic view for the quadratic complex map.
 // No relationship to the v0.1 oscillator's animation clock.
 import { state } from './core.mjs';
-import { gridEscapeTimes, compareSensitivity } from './nonlinear.mjs';
+import { gridEscapeTimes, compareSensitivity, NOT_ESCAPED } from './nonlinear.mjs';
 const $ = id => document.getElementById(id);
 const canvas = $('fractal-view');
 const ctx = canvas.getContext('2d');
@@ -16,7 +16,7 @@ function draw() {
     span: model === 'julia' ? 3.3 : 3.2 });
   const image = ctx.createImageData(data.width, data.height);
   for (let k = 0; k < data.pixels.length; k++) {
-    const escaped = data.pixels[k] < maxIterations;
+    const escaped = data.pixels[k] !== NOT_ESCAPED;
     const t = escaped ? data.pixels[k] / maxIterations : 0;
     const i = k * 4;
     image.data[i] = escaped ? Math.floor(32 + 182 * Math.sqrt(t)) : 7;
