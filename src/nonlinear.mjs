@@ -4,6 +4,8 @@ import { state, checkedState, rotate90, distance } from './core.mjs';
 
 export const NONLINEAR_LIMITS = Object.freeze({ maxIterations: 512, maxWidth: 320, maxHeight: 240, maxCoordinate: 4, bailout: 2 });
 export const JULIA_DEFAULT = Object.freeze({ x: -0.8, y: 0.156 });
+// Sentinel is above the highest permitted iteration count (512).
+export const NOT_ESCAPED = 65535;
 
 function boundedComplex(value, label) {
   const v = checkedState(value);
@@ -76,7 +78,7 @@ export function gridEscapeTimes({ model, c = JULIA_DEFAULT, width = 180, height 
       const point = state(focus.x + (x + 0.5 - width / 2) * span / width,
         focus.y + (height / 2 - y - 0.5) * verticalSpan / height);
       const outcome = escapeTime({ model, point, c: parameter, maxIterations });
-      pixels[y * width + x] = outcome.escaped ? outcome.iterations : maxIterations;
+      pixels[y * width + x] = outcome.escaped ? outcome.iterations : NOT_ESCAPED;
       if (outcome.escaped) escaped++; else notEscaped++;
     }
   }
@@ -95,10 +97,15 @@ export function compareSensitivity({ anchor = state(1, 0), epsilon = 0.01,
   const perturbed = state(base.x + epsilon, base.y);
   boundedComplex(perturbed, 'perturbed anchor');
   const initial = distance(base, perturbed);
+  if (initial === 0) throw new RangeError('epsilon is below float64 resolution at this anchor');
   const linear = distance(complexRotate90(base), complexRotate90(perturbed));
   const nonlinear = distance(quadraticStep(base, parameter), quadraticStep(perturbed, parameter));
+  const linearRatio = linear / initial, quadraticRatio = nonlinear / initial;
+  if (!Number.isFinite(linearRatio) || !Number.isFinite(quadraticRatio)) {
+    throw new RangeError('nonfinite numerical sensitivity ratio');
+  }
   return { initialDistance: initial, linearDistance: linear, quadraticDistance: nonlinear,
-    linearRatio: linear / initial, quadraticRatio: nonlinear / initial,
+    linearRatio, quadraticRatio,
     quadraticJacobianDeterminant: 4 * (base.x * base.x + base.y * base.y),
     interpretation: 'Orthogonal rotation preserves pairwise distance. The quadratic map has a state-dependent Jacobian; its distance can expand or contract.' };
 }
