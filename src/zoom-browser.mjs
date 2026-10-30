@@ -81,9 +81,16 @@ $('zoom-out').addEventListener('click', () =>
 $('zoom-reset').addEventListener('click', switchModel);
 $('zoom-overlay').addEventListener('click', () => {
   overlay = !overlay;
+  try {
+    draw();
+  } catch (err) {
+    // A shifted view may exceed the domain at an edge; restore the valid view.
+    overlay = false;
+    draw();
+    $('zoom-alert').textContent = 'Sensitivity overlay unavailable: ' + err.message;
+  }
   $('zoom-overlay').setAttribute('aria-pressed', String(overlay));
   $('zoom-overlay').textContent = overlay ? 'Hide sensitivity overlay' : 'Show sensitivity overlay';
-  draw();
 });
 canvas.addEventListener('wheel', event => {
   event.preventDefault();
