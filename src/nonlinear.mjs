@@ -39,9 +39,12 @@ export function escapeTime({ model, point, c = JULIA_DEFAULT, maxIterations = 80
   count(maxIterations, 'maxIterations', NONLINEAR_LIMITS.maxIterations);
   const p = boundedComplex(point, 'point');
   const parameter = model === 'mandelbrot' ? p : boundedComplex(c, 'c');
+  // For larger |c|, radius 2 alone need not certify future divergence.
+  // R=max(2,|c|+1) is a conservative escape radius for z²+c.
+  const bailout = Math.max(NONLINEAR_LIMITS.bailout, Math.hypot(parameter.x, parameter.y) + 1);
   let z = model === 'mandelbrot' ? state(0, 0) : p;
   for (let k = 0; k <= maxIterations; k++) {
-    if (Math.hypot(z.x, z.y) > NONLINEAR_LIMITS.bailout) {
+    if (Math.hypot(z.x, z.y) > bailout) {
       return { model, escaped: true, iterations: k, classification: 'escaped', final: z };
     }
     if (k === maxIterations) break;
