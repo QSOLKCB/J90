@@ -54,8 +54,15 @@
 - Independent Python stdlib recurrence on five fixed cases, tolerance 1e-9, SHA-256 grid/report receipts.
 - Browser bifurcation plot and selected-parameter readout, bounded tests and CI gate.
 
-### v0.3.2+ — prospective
-- Bounded adaptive zoom with explicit coordinate error budgets and rigorous parameter uncertainty; no new physical claims.
+### v0.3.2 — precision-aware fractal explorer (this PR)
+- Independent bounded Mandelbrot/Julia zoom with pointer-wheel, recenter, drag-pan, keyboard controls and reset.
+- Float64 pixel collision watchdog and pixel-pitch/ULP warnings; invalid/ambiguous viewports fail closed.
+- Adaptive iteration caps (64..192), maximum computation budgets and quarter-pixel classification/iteration sensitivity overlay.
+- Three fixed cross-runtime Python grid comparisons, endian-specified grid and canonical report SHA-256 receipts.
+- Separate test-gated interactive Pages module and scientific interpretation protocol.
+
+### v0.3.3+ — future
+- Consolidation, convergence analysis at varying zoom scales and independently archived numerical evidence; no new physical claims.
 
 ## v0.4.x — dimensional-transposition claims
 
