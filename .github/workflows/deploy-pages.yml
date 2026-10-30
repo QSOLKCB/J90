@@ -30,6 +30,11 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Set up Python for independent parity
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
       - name: Run full test suite
         run: npm test
 
@@ -38,6 +43,9 @@ jobs:
 
       - name: Smoke-test adversarial controls
         run: node src/controls-cli.mjs --all > /dev/null
+
+      - name: Smoke-test cross-runtime checkpoint parity
+        run: node src/cross-runtime-cli.mjs > /dev/null
 
       - name: Assemble minimal Pages artifact
         shell: bash
