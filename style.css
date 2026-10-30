@@ -51,3 +51,21 @@ footer{padding:42px 0 0;text-align:center;line-height:2.1;color:#8398a9}footer a
 .stability-controls output{font:600 14px ui-monospace,monospace;color:var(--text)}
 .stability-controls .stats{margin:24px 0 0}
 .stability-controls .hint{padding:12px 0 0}
+
+/* v0.3.2 precision-aware viewport */
+.zoom-section{margin-top:28px;border-top:1px solid var(--border);padding-top:36px}
+.zoom-section h2{font-size:clamp(28px,4vw,43px);letter-spacing:-.035em;margin:16px 0}
+.zoom-section>p{max-width:870px;color:var(--soft);line-height:1.7}
+#zoom-view{display:block;width:100%;max-width:660px;height:auto;aspect-ratio:176/112;background:#07111e;margin:10px auto 15px;cursor:crosshair;touch-action:none}
+#zoom-view:focus-visible{outline:2px solid var(--green)}
+.zoom-controls{padding:0 24px 23px}
+.zoom-controls .panel-heading{padding-left:0;padding-right:0}
+.zoom-controls label{display:block;font-size:13px;color:var(--soft);margin:14px 0 7px}
+#zoom-model{width:100%;background:#142b3b;color:var(--text);border:1px solid var(--border);border-radius:5px;padding:12px}
+.zoom-controls .stats{margin:17px 0 0}
+.zoom-controls .stats div{align-items:baseline}
+.zoom-controls .stats strong{overflow-wrap:anywhere;text-align:right;max-width:68%}
+.zoom-controls>.hint{padding:14px 0 0}
+.zoom-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:15px 0}
+.zoom-actions button{width:100%;margin:0;padding:12px 3px;font-size:12px}
+#zoom-overlay{margin:0;width:100%}
