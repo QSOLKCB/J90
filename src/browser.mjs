@@ -4,7 +4,9 @@ const $ = id => document.getElementById(id);
 const fields = ['phase', 'omega', 'damping', 'gap'];
 const colors = { x: '#ffbd77', y: '#aeb8ff', result: '#71ffd3' };
 let animate = false;
-let last = 0;
+// Preserve sub-degree motion independently of the integer-step range control.
+let phaseDegrees = Number($('phase').value);
+let last = null;
 const circle = $('orbit');
 const wave = $('wave');
 const orbitCtx = circle.getContext('2d');
@@ -56,7 +58,7 @@ function drawWave(initial, omega, damping) {
   ctx.fillText('t = 0', pad, h - 10); ctx.fillText('t = 12', w - 90, h - 10);
 }
 function render() {
-  const deg = Number($('phase').value);
+  const deg = phaseDegrees;
   const omega = Number($('omega').value);
   const damping = Number($('damping').value);
   const gap = Number($('gap').value);
@@ -65,7 +67,7 @@ function render() {
   const noGap = evolve(pre, { omega, damping, duration: 1 });
   const resumed = evolve(pre, { omega, damping, duration: 1 });
   const continuous = evolve(pre, { omega, damping, duration: gap + 1 });
-  $('phase-value').textContent = deg + '°';
+  $('phase-value').textContent = deg.toFixed(1) + '°';
   $('omega-value').textContent = omega.toFixed(2);
   $('damping-value').textContent = damping.toFixed(2);
   $('gap-value').textContent = gap.toFixed(1);
@@ -79,16 +81,22 @@ function render() {
   drawOrbit(initial);
   drawWave(initial, omega, damping);
 }
-for (const field of fields) $(field).addEventListener('input', render);
+for (const field of fields) $(field).addEventListener('input', () => {
+  if (field === 'phase') phaseDegrees = Number($('phase').value);
+  render();
+});
 $('animate').addEventListener('click', () => {
   animate = !animate;
   $('animate').setAttribute('aria-pressed', String(animate));
   $('animate').textContent = animate ? '❚❚ PAUSE ANIMATION' : '▶ ANIMATE PHASE';
-  last = 0;
+  last = null;
 });
 function tick(now) {
   if (animate) {
-    if (last) $('phase').value = (Number($('phase').value) + (now - last) * .06) % 360;
+    if (last !== null) {
+      phaseDegrees = (phaseDegrees + (now - last) * .06) % 360;
+      $('phase').value = String(phaseDegrees);
+    }
     render();
   }
   last = now;
