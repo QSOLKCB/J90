@@ -26,8 +26,11 @@ export function pixelPoint(view, x, y) {
   finite(x, 'x'); finite(y, 'y');
   if (x < 0 || x > view.width || y < 0 || y > view.height)
     throw new RangeError('pixel coordinates outside viewport');
+  // Match gridEscapeTimes' vertical arithmetic exactly. Float64 rounding can
+  // differ from the algebraically equivalent offset * span / width.
+  const verticalSpan = view.span * view.height / view.width;
   return state(view.centre.x + (x - view.width / 2) * view.span / view.width,
-    view.centre.y + (view.height / 2 - y) * view.span / view.width);
+    view.centre.y + (view.height / 2 - y) * verticalSpan / view.height);
 }
 // Portable float64 ULP scale estimate (powers-of-two bins, subnormal clamp).
 function ulp(v) {
@@ -138,8 +141,12 @@ export function renderZoom(view) {
 // One-quarter-pixel shift, same iteration budget and dimensions, to identify
 // classification/escape-time changes. This measures numerical sensitivity only.
 export function compareBoundary(view, baseline = null) {
-  const base = baseline ?? renderZoom(view);
   const shifted = panBy(view, -0.25, 0);
+  // An offset may round away even while full pixels are still distinguishable.
+  // Never present two identical viewports as a performed sensitivity test.
+  if (shifted.centre.x === view.centre.x && shifted.centre.y === view.centre.y)
+    throw new RangeError('sensitivity comparison unavailable: quarter-pixel shift is unrepresentable in float64');
+  const base = baseline ?? renderZoom(view);
   const other = renderZoom(shifted);
   if (base.maxIterations !== other.maxIterations) throw new Error('comparison budget mismatch');
   const mask = new Uint8Array(base.pixels.length);

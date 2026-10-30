@@ -45,6 +45,37 @@ test('watchdog rejects actual adjacent-coordinate collisions', () => {
   assert.throws(() => renderZoom(deep), /collide/);
   assert.throws(() => zoomAt({ ...deep, span: 1e-14 }, 88, 56, 4), /collide|range/);
 });
+test('vertical collision watchdog matches renderer float64 operation order', () => {
+  const v = { ...defaultViewport('julia', 13, 21),
+    centre: state(0, 1.25), span: 2.7422508708241366e-15 };
+  const verticalSpan = v.span * v.height / v.width;
+  let prev;
+  let collisions = 0;
+  for (let y = 0; y < v.height; y++) {
+    const value = v.centre.y + (v.height / 2 - y - 0.5) * verticalSpan / v.height;
+    if (y > 0 && value === prev) collisions++;
+    prev = value;
+  }
+  assert.ok(collisions > 0, 'renderer must have at least one vertical collision');
+  const report = precisionReport(v);
+  assert.equal(report.duplicateY, collisions);
+  assert.equal(report.status, 'BLOCKED_COORDINATE_COLLISION');
+  assert.throws(() => renderZoom(v), /collide/);
+});
+
+test('unrepresentable quarter-pixel shift is not reported as sensitivity', () => {
+  const v = { ...defaultViewport('mandelbrot', 32, 24),
+    centre: state(-0.7435, 0.1314), span: 4e-15 };
+  assert.equal(precisionReport(v).status, 'NEAR_FLOAT64_RESOLUTION');
+  const unchanged = panBy(v, -0.25, 0);
+  assert.deepEqual(unchanged.centre, v.centre);
+  assert.throws(() => compareBoundary(v), /shift is unrepresentable/);
+  assert.throws(() => compareBoundary(v, renderZoom(v)), /shift is unrepresentable/);
+  const wide = defaultViewport('mandelbrot', 32, 24);
+  assert.notDeepEqual(panBy(wide, -0.25, 0).centre, wide.centre);
+  assert.equal(compareBoundary(wide).comparedPixels, wide.width * wide.height);
+});
+
 test('input ranges, outside domain and work budgets fail closed', () => {
   const base = defaultViewport();
   assert.throws(() => defaultViewport('bogus'));

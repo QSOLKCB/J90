@@ -14,6 +14,8 @@ The horizontal span must lie in [1e-15, 6], widths in [8,320], heights in [8,240
 
 The watchdog computes the actual horizontal and vertical Float64 coordinates of every adjacent pixel centre and counts equal neighbours. Any collision blocks rendering and further zoom. An estimated ratio of pixel pitch to local ULP provides a warning below 8; it is not an independently proven propagated error bound. A very small span can be valid near zero yet unrepresentable around a nonzero centre. No arbitrary-precision arithmetic is claimed.
 
+The watchdog uses exactly the renderer's floating-point operation order for its vertical sample coordinates, including the intermediate `span * height / width`, because algebraically equivalent arithmetic can round differently at extreme zoom. If a requested quarter-pixel sensitivity shift rounds away to the same complex centre, comparison fails explicitly instead of reporting false zero changes.
+
 ## Sensitivity overlay
 
 When enabled, a second grid is rendered with a deterministic 0.25-pixel horizontal viewport shift. Magenta indicates that a pixel changed between escaped and not-escaped-within-budget; amber indicates a change in the recorded iteration count without a classification change. This is a finite-resolution *numerical* comparison, not a proof of chaotic dynamics, a bifurcation, mathematical set membership or a physical instability.
