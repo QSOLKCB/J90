@@ -12,7 +12,7 @@ For **Mandelbrot**, set z₀=0 and vary parameter c across the plane. For **Juli
 
 ## Escape algorithm and evidence limits
 
-The escape condition is `|z| > 2` after each iteration, or at step zero for an already-outside Julia starting point. The count records how many quadratic iterations occurred before detection. With the standard quadratic-family setup, the bailout radius 2 works for the usual Mandelbrot and selected small-magnitude Julia parameters. For arbitrary large c, a general escape radius can require a stronger bound; therefore **the code only interprets escape-time outcomes as numerical orbit observations**, and does not claim a proof of membership or divergence for every parameter in its accepted domain.
+The escape condition uses the conservative radius `max(2, |c|+1)`, evaluated after each update, or at step zero for an already-outside Julia starting point. The count records how many quadratic iterations occurred before detection. Radius 2 is sufficient for standard low-magnitude parameters; for larger |c| the stricter adaptive radius prevents incorrectly classifying transient excursions as proven divergence. The computed escape criterion is sufficient for divergence in this quadratic family, but finite-budget non-escape never proves membership.
 
 If no escape occurs before the configured limit, the classification is **not-escaped-within-budget**, *not* inside the set. Numerical underflow, long transients, phase aliasing, and small-scale precision are limitations of finite float64 computation.
 
