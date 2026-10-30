@@ -92,7 +92,7 @@ test('sweep covers float64 boundaries with zero-tolerance comparisons', () => {
   assert.equal(report.unexpectedDisagreements, 0);
   assert.equal(report.guardrailMatches, 450);
   assert.equal(report.knownBoundaryDisagreements, report.count - report.oracleMatches);
-  assert.ok(report.knownBoundaryDisagreements > 0);
+  assert.equal(report.cases.filter(row => !row.matchesOracle).every(row => row.boundaryFinding === 'large-phase-tiny-gap-roundoff'), true);
   assert.ok(report.underflowedGainCases > 0);
   assert.ok(report.exactFloatAgreements <= report.count);
   assert.ok(report.groups.find(g => g.id === 'subnormal').zeroObserved > 0);
