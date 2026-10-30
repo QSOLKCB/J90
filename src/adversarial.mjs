@@ -88,9 +88,10 @@ export function observeExternal(channels = {}, budget = errorBudget()) {
       throw new TypeError('sensor requires two explicit states');
     }
     const delta = distance(c.before, c.after);
-    sensor = Object.freeze({ stateDistance: delta,
-      stateChangedWithinBudget: delta > b.absolute + b.relative * Math.max(
-        Math.hypot(c.before.x, c.before.y), Math.hypot(c.after.x, c.after.y)) });
+    const scale = finite(Math.max(Math.hypot(c.before.x, c.before.y),
+      Math.hypot(c.after.x, c.after.y)), 'sensor amplitude');
+    const threshold = finite(b.absolute + b.relative * scale, 'sensor threshold');
+    sensor = Object.freeze({ stateDistance: delta, stateChangedWithinBudget: delta > threshold });
   }
   if (Object.hasOwn(channels, 'memory')) {
     const c = channels.memory;
@@ -138,7 +139,8 @@ export function getNullModel(id) {
 
 export function runNullRegistry() {
   return NULL_MODELS.map(item => {
-    const report = evaluateControl(item);
+    const { id, initial, omega, damping, before, gap, after } = item;
+    const report = evaluateControl({ id, initial, omega, damping, before, gap, after });
     return Object.freeze({ ...report, label: item.label, description: item.description });
   });
 }
