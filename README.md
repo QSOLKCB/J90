@@ -2,7 +2,7 @@
 
 A small, deterministic research laboratory for 90° rotations, quadrature oscillators, state persistence, and interruption/recovery experiments. Inspired by a public question from Robert Dumont (@Voltardark), J90 tests *operational, mathematical* claims without presupposing life, agency, or consciousness.
 
-**Status:** v0.2.0 adversarial controls / exploratory research. **License:** Apache-2.0.
+**Status:** v0.2.1 cross-runtime replay / exploratory research. **License:** Apache-2.0.
 
 ## What it actually demonstrates
 
@@ -25,7 +25,7 @@ The interruption experiment saves an exact model state, advances **no logical ti
 
 ## Run the experiment
 
-Requires Node.js 20+ only. No runtime dependencies, dependency downloads, or hidden randomness. Tests and experiments do not require network access; GitHub Actions runs the test suite before publishing the static site.
+Requires Node.js 20+ and, for cross-runtime parity, Python 3.11+ (stdlib only). There are no runtime package dependencies, dependency downloads, or hidden randomness. Tests and experiments do not require network access; GitHub Actions runs the test suite before publishing the static site.
 
 ~~~sh
 npm test
@@ -33,6 +33,8 @@ npm run experiment
 npm run experiment -- --omega 1.57 --damping 0.1 --before 1 --gap 2 --after 1
 npm run controls
 npm run controls -- --case phase-alias
+npm run parity
+npm run parity -- --atol 1e-12 --rtol 1e-12
 ~~~
 
 Both commands produce machine-readable JSON with validated inputs and interpretation limits. The original experiment emits a canonical SHA-256 checkpoint; the adversarial controls command includes registry results, analytical comparisons, and replay receipts. All times are abstract nonnegative time units; omega is radians per unit time.
@@ -51,7 +53,7 @@ Then visit http://localhost:8000/. The static interactive lab needs no backend. 
 
 The repository is configured for **Settings → Pages → Build and deployment → Source: GitHub Actions**. The [deployment workflow](.github/workflows/deploy-pages.yml) automatically runs on pushes to `main`, including merges, and also supports **Actions → Deploy J90 Laboratory → Run workflow** for manual publication.
 
-The workflow uses Node.js 22 and runs `npm test`, the original experiment smoke test, and the v0.2 controls report. Pull requests run validation without publishing. Pushes to `main` and manual dispatches package a minimal `_site` containing the static browser files, shared adversarial oracle, and attribution page, then deploy **only after validation passes**. The deployment job alone receives Pages write / OIDC permissions. No npm dependencies or build tool are needed. The published address is [https://qsolkcb.github.io/J90/](https://qsolkcb.github.io/J90/).
+The workflow uses Node.js 22 and Python 3.12 and runs `npm test`, the original experiment smoke test, the v0.2 controls report, and the cross-runtime parity command. Pull requests run validation without publishing. Pushes to `main` and manual dispatches package a minimal `_site` containing the static browser files, shared adversarial oracle, and attribution page, then deploy **only after validation passes**. The deployment job alone receives Pages write / OIDC permissions. No npm dependencies or build tool are needed. The published address is [https://qsolkcb.github.io/J90/](https://qsolkcb.github.io/J90/).
 
 If this is the first deployment, merge the workflow PR, then check **Actions → Deploy J90 Laboratory** for its result and **Settings → Pages** for the site URL. The workflow cannot deploy from a PR branch until the workflow has reached `main`; the first merge automatically triggers publication.
 
@@ -62,6 +64,7 @@ If this is the first deployment, merge the workflow PR, then check **Actions →
 - A seven-case falsification registry and 24-point deterministic boundary sweep; a separate scalar analytical oracle checks numerical agreement within a declared absolute/relative tolerance.
 - Explicit optional observation channels (clock, sensor, recorded interruption) that never read a hidden wall clock or infer awareness from a signal.
 - See [Adversarial Protocol v0.2](docs/ADVERSARIAL.md) for formulas, known confounders, and evidence limitations.
+- **v0.2.1:** Node.js issues 40 checkpoint receipts across eight fixed scenarios; Python verifies SHA-256 over each raw payload and independently replays 32 segments. Comparison checks both resumed snapshots and Python-only trajectories against bounded numerical tolerances. See [cross-runtime protocol](docs/CROSS_RUNTIME.md).
 - No reliance on presumed "emergence"; no claim that a geometrical rotation proves consciousness, new physics, or equivalence of unrelated mathematical transforms.
 - Checkpoints are integrity receipts, not cryptographic proof of physical truth.
 - See [experiment protocol](docs/EXPERIMENTS.md), [attribution](docs/ATTRIBUTION.md), [invariants](docs/INVARIANTS.md), and [roadmap](docs/ROADMAP.md).
