@@ -48,9 +48,14 @@
 - Fixed 96×64 CLI grid summaries and SHA-256 receipts; browser 200×134 interactive portraits at configurable iteration caps and Julia parameters.
 - Test-only PR CI and automatic tested Pages deployment on main.
 
-### v0.3.1+ — prospective
-- Controlled bifurcation and sensitivity sweeps with independent numerical cross-checks and versioned receipts.
-- Adaptive zoom with explicit coordinate error bounds and performance budgets; no new physics claims.
+### v0.3.1 — real-axis finite-window bifurcation and stability (this PR)
+- Deterministic 241-parameter real-axis late-orbit sweep, cautious candidate periods (1/2/4/8) and escaped-orbit accounting.
+- Analytic complex-derivative recurrence versus finite-difference trajectories, with finite-time log gain labelled correctly.
+- Independent Python stdlib recurrence on five fixed cases, tolerance 1e-9, SHA-256 grid/report receipts.
+- Browser bifurcation plot and selected-parameter readout, bounded tests and CI gate.
+
+### v0.3.2+ — prospective
+- Bounded adaptive zoom with explicit coordinate error budgets and rigorous parameter uncertainty; no new physical claims.
 
 ## v0.4.x — dimensional-transposition claims
 

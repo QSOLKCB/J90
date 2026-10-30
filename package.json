@@ -1,6 +1,6 @@
 {
   "name": "j90-lab",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "type": "module",
   "description": "Deterministic 90-degree quadrature and interruption/recovery research laboratory.",
@@ -13,7 +13,8 @@
     "controls": "node src/controls-cli.mjs",
     "parity": "node src/cross-runtime-cli.mjs",
     "evidence": "node src/evidence-cli.mjs",
-    "nonlinear": "node src/nonlinear-cli.mjs"
+    "nonlinear": "node src/nonlinear-cli.mjs",
+    "stability": "node src/stability-cli.mjs"
   },
   "license": "Apache-2.0"
 }
