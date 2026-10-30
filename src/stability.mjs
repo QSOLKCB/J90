@@ -71,8 +71,13 @@ export function realAxisSweep({
   integer(burnIn, 'burnIn', 0, STABILITY_LIMITS.maxBurnIn);
   integer(samples, 'samples', 4, STABILITY_LIMITS.maxSamples);
   scalar(tolerance, 'tolerance', 0, 0.01);
-  const rows = Array.from({ length: steps }, (_, i) =>
-    realOrbit({ c: cMin + (cMax - cMin) * i / (steps - 1), burnIn, samples, tolerance }));
+  // Preserve caller-validated endpoints exactly. Interpolating the last point
+  // can round past maxC (for example -1.7..0.5 yields 0.5000000000000002).
+  const rows = Array.from({ length: steps }, (_, i) => {
+    const c = i === 0 ? cMin : i === steps - 1 ? cMax
+      : cMin + (cMax - cMin) * i / (steps - 1);
+    return realOrbit({ c, burnIn, samples, tolerance });
+  });
   const escaped = rows.filter(r => r.escaped).length;
   const counts = { '1': 0, '2': 0, '4': 0, '8': 0, undetermined: 0 };
   for (const row of rows) {
