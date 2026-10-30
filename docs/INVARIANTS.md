@@ -8,6 +8,8 @@
 
 **Checkpoint:** Version 1 is canonical JSON with lexicographically sorted keys, SHA-256 over payload, and a strict canonical envelope. A digest checks file integrity, not provenance or scientific accuracy. The representation is JavaScript-specific; cross-language canonical JSON must be separately specified before interoperability is claimed.
 
+**Cross-runtime replay:** The Node.js emitter produces v1 canonical checkpoints; the Python stdlib consumer checks integrity over the original payload bytes and preserves the v1 field/schema ordering. Python does not claim to regenerate JavaScript number spellings byte for byte. Mathematical parity uses independent operations and declared finite absolute/relative error budgets, never cross-runtime byte equality. Subprocesses have fixed argument lists, disabled shells, bounded input/output and no caller-controlled executable paths.
+
 **Evidence:** Distinguish identities, simulation outcomes, conjectures, and externally measured empirical evidence. Null comparisons are mandatory. Reproducing a known identity does not support an extraordinary inference.
 
 **Research and ethics:** No attribution of consciousness, sentience, or agency without independently defined operational evidence. Cite inspirations accurately; do not imply external endorsement.
