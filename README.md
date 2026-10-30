@@ -25,7 +25,7 @@ The interruption experiment saves an exact model state, advances **no logical ti
 
 ## Run the experiment
 
-Requires Node.js 20+ only. No installation, dependency downloads, network, CI, or hidden randomness.
+Requires Node.js 20+ only. No runtime dependencies, dependency downloads, or hidden randomness. Tests and experiments do not require network access; GitHub Actions runs the test suite before publishing the static site.
 
 ~~~sh
 npm test
@@ -43,7 +43,15 @@ Serve the repository root over HTTP (for ES modules):
 python3 -m http.server 8000
 ~~~
 
-Then visit http://localhost:8000/. The static interactive lab needs no backend and can also be published through GitHub Pages using **Deploy from a branch / main / (root)** after merging. This browser demonstration uses the same pure oscillator kernel as the Node experiment; checkpoint hashing and structured results remain in the Node CLI.
+Then visit http://localhost:8000/. The static interactive lab needs no backend. This browser demonstration uses the same pure oscillator kernel as the Node experiment; checkpoint hashing and structured results remain in the Node CLI.
+
+### GitHub Pages (GitHub Actions source)
+
+The repository is configured for **Settings → Pages → Build and deployment → Source: GitHub Actions**. The [deployment workflow](.github/workflows/deploy-pages.yml) automatically runs on pushes to `main`, including merges, and also supports **Actions → Deploy J90 Laboratory → Run workflow** for manual publication.
+
+The workflow uses Node.js 22, runs `npm test` and a CLI smoke test, builds a minimal `_site` containing only the static browser files and attribution page, and publishes it **only if validation succeeds**. The deployment job alone receives Pages write / OIDC permissions. It does not need npm dependencies or a build tool. The published address is [https://qsolkcb.github.io/J90/](https://qsolkcb.github.io/J90/).
+
+If this is the first deployment, merge the workflow PR, then check **Actions → Deploy J90 Laboratory** for its result and **Settings → Pages** for the site URL. The workflow cannot deploy from a PR branch until the workflow has reached `main`; the first merge automatically triggers publication.
 
 ## Reproducibility and scientific scope
 
