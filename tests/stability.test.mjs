@@ -35,7 +35,8 @@ test('finite-time tangent and independent perturbation agree for stable probes',
   }
   const contracting = derivativeTrace({ initial: state(0.5,0), c: state(0,0), steps: 3 });
   assert.ok(contracting.rows.every(row => row.analyticGain <= 1));
-  assert.ok(contracting.rows.every(row => row.finiteDifferenceGain < 1));
+  assert.ok(Math.abs(contracting.rows[0].finiteDifferenceGain - 1) < 1e-4);
+  assert.ok(contracting.rows.slice(1).every(row => row.finiteDifferenceGain < 1));
 });
 test('zero derivative is finite and a tiny perturbation fails closed', () => {
   const critical = derivativeTrace({ initial: state(0,0), c: state(0,0), steps: 2 });
