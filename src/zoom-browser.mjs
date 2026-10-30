@@ -123,7 +123,8 @@ canvas.addEventListener('keydown', event => {
     ArrowRight: () => panBy(view, -16, 0),
     ArrowUp: () => panBy(view, 0, 16),
     ArrowDown: () => panBy(view, 0, -16),
-    Home: () => defaultViewport(view.model, view.width, view.height)
+    Home: () => ({ ...defaultViewport(view.model, view.width, view.height),
+      c: state(Number($('zoom-julia-real').value), Number($('zoom-julia-imag').value)) })
   };
   if (!actions[key]) return;
   event.preventDefault();
