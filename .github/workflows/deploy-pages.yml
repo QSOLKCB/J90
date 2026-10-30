@@ -56,13 +56,16 @@ jobs:
       - name: Smoke-test independent stability and real-axis oracle
         run: node src/stability-cli.mjs > /dev/null
 
+      - name: Smoke-test independent precision zoom experiment
+        run: node src/zoom-cli.mjs > /dev/null
+
       - name: Assemble minimal Pages artifact
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p _site/src _site/docs
           cp index.html style.css _site/
-          cp src/browser.mjs src/core.mjs src/adversarial.mjs src/nonlinear.mjs src/fractal-browser.mjs src/stability.mjs src/stability-browser.mjs _site/src/
+          cp src/browser.mjs src/core.mjs src/adversarial.mjs src/nonlinear.mjs src/fractal-browser.mjs src/stability.mjs src/stability-browser.mjs src/zoom.mjs src/zoom-browser.mjs _site/src/
           cp docs/ATTRIBUTION.md _site/docs/
           touch _site/.nojekyll
           test -s _site/index.html
@@ -73,6 +76,8 @@ jobs:
           test -s _site/src/fractal-browser.mjs
           test -s _site/src/stability.mjs
           test -s _site/src/stability-browser.mjs
+          test -s _site/src/zoom.mjs
+          test -s _site/src/zoom-browser.mjs
           test -s _site/docs/ATTRIBUTION.md
 
       - name: Upload Pages artifact

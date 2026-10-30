@@ -9,6 +9,7 @@
   <script type="module" src="./src/browser.mjs"></script>
   <script type="module" src="./src/fractal-browser.mjs"></script>
   <script type="module" src="./src/stability-browser.mjs"></script>
+  <script type="module" src="./src/zoom-browser.mjs"></script>
 </head>
 <body>
   <header class="site-header">
@@ -136,6 +137,42 @@
             <div><span>Tangent / finite-difference error</span><strong id="stability-residual">—</strong></div>
           </div>
           <p class="hint" id="stability-explanation" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+    <section class="zoom-section" aria-labelledby="zoom-heading">
+      <div class="eyebrow">EXPERIMENT 005 / FLOAT64 PRECISION WATCHDOG</div>
+      <h2 id="zoom-heading">How deep can a pixel go?</h2>
+      <p>Explore bounded Mandelbrot and Julia zooms. We check actual neighbouring Float64 pixel coordinates before rendering; an optional sensitivity overlay compares nearby sampled viewports. Nothing here establishes chaos, life or consciousness.</p>
+      <div class="nonlinear-grid">
+        <div class="panel">
+          <div class="panel-heading"><span><b>10</b> PRECISION-AWARE ZOOM</span><span class="tiny">BOUNDED / DETERMINISTIC</span></div>
+          <canvas id="zoom-view" width="176" height="112" tabindex="0" role="img" aria-label="Zoomable fractal. Wheel zooms, click recentres, drag pans; arrow keys pan, plus or minus zooms, Home resets."></canvas>
+          <p class="hint">Wheel: zoom at cursor · Click: centre · Drag: pan · Arrows / + / − / Home. Magenta: escape classification changed; amber: iteration count changed.</p>
+        </div>
+        <div class="panel zoom-controls">
+          <div class="panel-heading"><span><b>11</b> NUMERICAL RESOLUTION</span><span class="tiny">NO IMPLIED PHYSICAL MEASUREMENT</span></div>
+          <label for="zoom-model">Quadratic model</label>
+          <select id="zoom-model"><option value="mandelbrot">Mandelbrot</option><option value="julia">Julia</option></select>
+          <label for="zoom-julia-real">Julia Re(c)</label>
+          <input id="zoom-julia-real" type="range" min="-1.5" max="1.5" step="0.01" value="-0.8">
+          <label for="zoom-julia-imag">Julia Im(c)</label>
+          <input id="zoom-julia-imag" type="range" min="-1.5" max="1.5" step="0.001" value="0.156">
+          <div class="zoom-actions">
+            <button id="zoom-in" type="button">Zoom +</button>
+            <button id="zoom-out" type="button">Zoom −</button>
+            <button id="zoom-reset" type="button">Reset</button>
+          </div>
+          <button id="zoom-overlay" type="button" aria-pressed="false">Show sensitivity overlay</button>
+          <div class="stats">
+            <div><span>Complex centre</span><strong id="zoom-centre">—</strong></div>
+            <div><span>Horizontal span</span><strong id="zoom-span">—</strong></div>
+            <div><span>Adaptive iterations</span><strong id="zoom-iterations">—</strong></div>
+            <div><span>Float64 watchdog</span><strong id="zoom-precision">—</strong></div>
+            <div><span>Escaped pixels</span><strong id="zoom-escaped">—</strong></div>
+            <div><span>Quarter-pixel perturbation</span><strong id="zoom-sensitive">—</strong></div>
+          </div>
+          <p class="hint" id="zoom-alert" role="status" aria-live="polite"></p>
         </div>
       </div>
     </section>
