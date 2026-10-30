@@ -23,3 +23,19 @@ footer{padding:42px 0 0;text-align:center;line-height:2.1;color:#8398a9}footer a
 .challenge-result strong{font:600 13px ui-monospace,monospace;color:var(--green)}
 .challenge-note{font-size:12px;line-height:1.65;color:var(--soft)}
 @media(max-width:850px){.challenge-layout{grid-template-columns:1fr}.adversarial-panel{order:5}}
+
+
+/* v0.3.0 nonlinear models have their own independent research display. */
+.nonlinear-section{margin-top:24px;border-top:1px solid var(--border);padding-top:36px}
+.nonlinear-section h2{font-size:clamp(28px,4vw,43px);letter-spacing:-.035em;margin:16px 0}
+.nonlinear-section>p{color:var(--soft);line-height:1.7;max-width:850px}
+.nonlinear-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;margin-top:22px}
+#fractal-view{display:block;width:100%;max-width:610px;height:auto;aspect-ratio:200/134;image-rendering:auto;margin:10px auto 18px;background:#08101c}
+.fractal-controls{padding:0 24px 20px}
+.fractal-controls .panel-heading{padding-left:0;padding-right:0}
+.fractal-controls label{display:flex;justify-content:space-between;gap:8px;color:var(--soft);font-size:13px;margin:17px 0 9px}
+.fractal-controls output{color:var(--text);font:600 13px ui-monospace,monospace}
+#fractal-model{display:block;width:100%;padding:12px;background:#142b3b;color:var(--text);border:1px solid var(--border);border-radius:5px}
+.fractal-controls .stats{margin:20px 0 0}
+.fractal-controls .hint{padding:10px 0 0}
+@media(max-width:850px){.nonlinear-grid{grid-template-columns:1fr}}

@@ -41,9 +41,16 @@
 
 ## v0.3.x — nonlinear comparison
 
-- Mandelbrot/Julia iteration as a **separate nonlinear model class**.
-- Explicitly state why complex multiplication by i is not the same as the nonlinear map z -> z^2+c.
-- Compare invariants, bifurcations and sensitivity with linear quadrature; no automatic "emergence" inference.
+### v0.3.0 — implementation (this PR)
+- Independent complex quadratic map z → z² + c, with Mandelbrot parameter planes and fixed-parameter Julia initial-state planes. No alteration to J90's linear kernel or checkpoint version.
+- Deterministic, bounded escape-time computation with known orbit fixtures and explicit distinction between finite-budget non-escape and proven membership.
+- Distance-preserving i·z comparison against state-dependent nonlinear sensitivity, including expanding and contracting counterexamples.
+- Fixed 96×64 CLI grid summaries and SHA-256 receipts; browser 200×134 interactive portraits at configurable iteration caps and Julia parameters.
+- Test-only PR CI and automatic tested Pages deployment on main.
+
+### v0.3.1+ — prospective
+- Controlled bifurcation and sensitivity sweeps with independent numerical cross-checks and versioned receipts.
+- Adaptive zoom with explicit coordinate error bounds and performance budgets; no new physics claims.
 
 ## v0.4.x — dimensional-transposition claims
 

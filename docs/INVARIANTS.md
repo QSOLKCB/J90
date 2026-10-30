@@ -14,6 +14,8 @@
 
 **Boundary stress:** Fixed, inspectable float64 grids and finite absolute/relative tolerances. Underflow, phase aliasing and bitwise differences must be reported rather than recast as emergence. Python differential replay is checked with an explicit numerical tolerance and fixed executable path.
 
+**Nonlinear comparison:** Complex multiplication by i is linear and norm-preserving, while z → z²+c is quadratic with state-dependent Jacobian. Mandelbrot varies c with z0=0; Julia varies z0 with c held fixed. Escaping |z|>2 is sufficient to establish divergence for these standard quadratic iterations with appropriately constrained parameters, but failure to escape within N steps never proves boundedness. No inference of consciousness from fractal geometry.
+
 **Evidence:** Distinguish identities, simulation outcomes, conjectures, and externally measured empirical evidence. Null comparisons are mandatory. Reproducing a known identity does not support an extraordinary inference.
 
 **Research and ethics:** No attribution of consciousness, sentience, or agency without independently defined operational evidence. Cite inspirations accurately; do not imply external endorsement.

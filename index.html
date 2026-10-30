@@ -7,6 +7,7 @@
   <title>J90 | Orthogonal Oscillator Laboratory</title>
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="./src/browser.mjs"></script>
+  <script type="module" src="./src/fractal-browser.mjs"></script>
 </head>
 <body>
   <header class="site-header">
@@ -74,6 +75,41 @@
             <div><span>Result</span><strong id="control-status">—</strong></div>
             <p id="control-meaning" class="challenge-note"></p>
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="nonlinear-section" aria-labelledby="nonlinear-title">
+      <div class="eyebrow">EXPERIMENT 003 / NONLINEAR COUNTEREXAMPLES</div>
+      <h2 id="nonlinear-title">A quarter turn is not a fractal.</h2>
+      <p>Compare complex multiplication by <code>i</code> with the quadratic iteration <code>z → z² + c</code>. Mandelbrot varies <code>c</code> across pixels and starts at zero; Julia fixes <code>c</code> and varies the starting point. Neither model tests consciousness.</p>
+      <div class="nonlinear-grid">
+        <div class="panel">
+          <div class="panel-heading"><span><b>06</b> ESCAPE-TIME PORTRAIT</span><span class="tiny">FINITE BUDGET / DETERMINISTIC</span></div>
+          <canvas id="fractal-view" width="200" height="134" role="img" aria-label="Computed escape-time image of selected Mandelbrot or Julia set"></canvas>
+          <p class="hint">Dark pixels did not escape within the selected iteration budget. Their membership is not mathematically proven.</p>
+        </div>
+        <div class="panel fractal-controls">
+          <div class="panel-heading"><span><b>07</b> COMPARE MODELS</span><span class="tiny">NO HIDDEN STATE</span></div>
+          <label for="fractal-model">Quadratic model</label>
+          <select id="fractal-model">
+            <option value="mandelbrot">Mandelbrot — vary c, z₀ = 0</option>
+            <option value="julia">Julia — vary z₀, fixed c</option>
+          </select>
+          <label for="fractal-budget">Maximum iterations <output id="fractal-budget-value">64</output></label>
+          <input id="fractal-budget" type="range" min="16" max="128" step="8" value="64">
+          <div class="julia-param">
+            <label for="julia-real">Julia parameter Re(c) <output id="julia-real-value">-0.800</output></label>
+            <input id="julia-real" type="range" min="-1.5" max="1.5" step="0.01" value="-0.8">
+            <label for="julia-imag">Julia parameter Im(c) <output id="julia-imag-value">0.156</output></label>
+            <input id="julia-imag" type="range" min="-1.5" max="1.5" step="0.001" value="0.156">
+          </div>
+          <div class="stats">
+            <div><span>Escaped pixels</span><strong id="fractal-escaped">—</strong></div>
+            <div><span>Not escaped within budget</span><strong id="fractal-bounded">—</strong></div>
+            <div><span>90° distance ratio</span><strong id="fractal-linear-ratio">1.000</strong></div>
+            <div><span>Quadratic distance ratio</span><strong id="fractal-quadratic-ratio">2.010</strong></div>
+          </div>
+          <p class="hint" id="fractal-summary" aria-live="polite"></p>
         </div>
       </div>
     </section>
