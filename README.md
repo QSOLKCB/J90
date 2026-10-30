@@ -2,7 +2,7 @@
 
 A small, deterministic research laboratory for 90° rotations, quadrature oscillators, state persistence, and interruption/recovery experiments. Inspired by a public question from Robert Dumont (@Voltardark), J90 tests *operational, mathematical* claims without presupposing life, agency, or consciousness.
 
-**Status:** v0.3.1 real-axis stability and bifurcation candidates / exploratory research. **License:** Apache-2.0.
+**Status:** v0.3.2 precision-aware fractal explorer / exploratory research. **License:** Apache-2.0.
 
 ## What it actually demonstrates
 
@@ -39,6 +39,7 @@ npm run evidence
 npm run evidence -- --full
 npm run nonlinear
 npm run stability
+npm run zoom
 ~~~
 
 The experiment, controls, parity and evidence commands produce machine-readable JSON with validated inputs and interpretation limits. The original experiment emits a canonical SHA-256 checkpoint; the adversarial controls command includes registry results, analytical comparisons, and replay receipts. All times are abstract nonnegative time units; omega is radians per unit time.
@@ -51,13 +52,13 @@ Serve the repository root over HTTP (for ES modules):
 python3 -m http.server 8000
 ~~~
 
-Then visit http://localhost:8000/. The static interactive lab needs no backend. The browser includes a **seven-case adversarial challenge panel** and a **Mandelbrot/Julia interactive escape-time portrait** and a **real-axis stability plot** using the same browser-safe analytical oracle and oscillator kernel. Checkpoint hashing and structured experiment receipts remain in the Node CLI.
+Then visit http://localhost:8000/. The static interactive lab needs no backend. The browser includes a **seven-case adversarial challenge panel** and a **Mandelbrot/Julia interactive escape-time portrait**, a **real-axis stability plot**, and a **precision-aware fractal zoom explorer** using the same browser-safe analytical oracle and oscillator kernel. Checkpoint hashing and structured experiment receipts remain in the Node CLI.
 
 ### GitHub Pages (GitHub Actions source)
 
 The repository is configured for **Settings → Pages → Build and deployment → Source: GitHub Actions**. The [deployment workflow](.github/workflows/deploy-pages.yml) automatically runs on pushes to `main`, including merges, and also supports **Actions → Deploy J90 Laboratory → Run workflow** for manual publication.
 
-The workflow uses Node.js 22 and Python 3.12 and runs `npm test`, the original experiment smoke test, the v0.2 controls report, and the cross-runtime parity command, and the evidence/stress command, the nonlinear comparison CLI, and the stability CLI. Pull requests run validation without publishing. Pushes to `main` and manual dispatches package a minimal `_site` containing the static browser files, shared adversarial oracle, nonlinear map and visualizer, and attribution page, then deploy **only after validation passes**. The deployment job alone receives Pages write / OIDC permissions. No npm dependencies or build tool are needed. The published address is [https://qsolkcb.github.io/J90/](https://qsolkcb.github.io/J90/).
+The workflow uses Node.js 22 and Python 3.12 and runs `npm test`, the original experiment smoke test, the v0.2 controls report, and the cross-runtime parity command, and the evidence/stress command, the nonlinear comparison CLI, the stability CLI, and the zoom CLI. Pull requests run validation without publishing. Pushes to `main` and manual dispatches package a minimal `_site` containing the static browser files, shared adversarial oracle, nonlinear map and visualizer, and attribution page, then deploy **only after validation passes**. The deployment job alone receives Pages write / OIDC permissions. No npm dependencies or build tool are needed. The published address is [https://qsolkcb.github.io/J90/](https://qsolkcb.github.io/J90/).
 
 After any merge to `main`, review **Actions → Deploy J90 Laboratory** for test and deployment results. PRs run validation but do not deploy. The v0.2.2 evidence tools remain CLI-only; the v0.3.0 nonlinear comparison runs separately from the v0.1 linear oscillator, in its own browser module.
 
@@ -72,6 +73,7 @@ After any merge to `main`, review **Actions → Deploy J90 Laboratory** for test
 - **v0.2.2:** explicit 35-cell synthetic observer-access matrix with source-labelled, SHA-256 hash-chained events; 450-case deterministic IEEE-754 boundary sweep; six additional Node/Python edge cases with 30 checkpoints and 84 comparisons. See [observation/provenance protocol](docs/OBSERVATION_MATRIX.md).
 - **v0.3.0:** a separate deterministic complex quadratic map, Mandelbrot and Julia escape-time probes, a sensitivity counterexample against 90° rotation, fixed image-grid receipts, and an interactive browser portrait. See [nonlinear protocol](docs/NONLINEAR.md).
 - **v0.3.1:** deterministic real-axis sweep, finite-window period candidates, tangent-vs-finite-difference comparisons, Python differential reference and versioned receipts. See [stability protocol](docs/STABILITY.md).
+- **v0.3.2:** bounded cursor-anchored zoom/pan/reset, Float64 adjacent pixel collision checks, adaptive iteration budgets, quarter-pixel sensitivity overlay, independent Python grid verification and deterministic SHA-256 receipts. See [zoom protocol](docs/ZOOM.md).
 - No reliance on presumed "emergence"; no claim that a geometrical rotation proves consciousness, new physics, or equivalence of unrelated mathematical transforms.
 - Checkpoints are integrity receipts, not cryptographic proof of physical truth.
 - See [experiment protocol](docs/EXPERIMENTS.md), [attribution](docs/ATTRIBUTION.md), [invariants](docs/INVARIANTS.md), and [roadmap](docs/ROADMAP.md).
