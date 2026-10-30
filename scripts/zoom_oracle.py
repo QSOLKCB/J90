@@ -55,9 +55,8 @@ def grid(item):
     result = []
     for iy in range(h):
         for ix in range(w):
-            pitch = span / w
-            px = centre[0] + ((ix + 0.5 - w / 2) * pitch)
-            py = centre[1] + ((h / 2 - iy - 0.5) * pitch)
+            px = centre[0] + ((ix + 0.5 - w / 2) * span / w)
+            py = centre[1] + ((h / 2 - iy - 0.5) * span / w)
             if abs(px) > 4 or abs(py) > 4:
                 invalid("grid exceeds domain")
             if model == "mandelbrot":
