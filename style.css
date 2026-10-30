@@ -8,3 +8,18 @@ main{max-width:1286px;margin:auto;padding:26px 28px 50px}.hero{padding:55px 10px
 .waveform-panel canvas{display:block;width:100%;height:auto;padding:12px 20px 22px}.explanation-panel{padding:0 24px 20px}.explanation-panel .panel-heading{padding-left:0}.explanation-panel p{color:var(--soft);font-size:14px;line-height:1.7}.explanation-panel strong{color:var(--text)}.explanation-panel .verdict{color:var(--green);padding:16px;background:#14332f;border-left:3px solid var(--green);border-radius:3px}
 footer{padding:42px 0 0;text-align:center;line-height:2.1;color:#8398a9}footer a{text-decoration:underline}
 @media(max-width:850px){.lab-grid{grid-template-columns:1fr}.hero{padding-top:32px}.brand-caption{display:none}.waveform-panel{order:3}.explanation-panel{order:4}}@media(max-width:510px){main{padding:12px 14px 30px}.site-header{padding:0 16px}.panel-heading{padding:16px 14px 12px}.tiny{display:none}.legend{gap:12px;font-size:10px}}
+
+/* Adversarial controls */
+
+.adversarial-panel{grid-column:1/-1;padding-bottom:25px}
+.challenge-layout{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:14px 24px 10px}
+.challenge-label{display:block;font-size:13px;color:var(--soft);margin-bottom:12px}
+#control-case{width:100%;appearance:auto;background:#142b3b;color:var(--text);border:1px solid var(--border);padding:13px;border-radius:5px;font:inherit;font-size:14px}
+#control-case:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.challenge-description{color:var(--text);line-height:1.65;min-height:40px}
+.challenge-hint{padding:0}
+.challenge-result{border:1px solid var(--border);padding:12px 18px;border-radius:8px}
+.challenge-result>div{display:flex;justify-content:space-between;gap:15px;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--soft)}
+.challenge-result strong{font:600 13px ui-monospace,monospace;color:var(--green)}
+.challenge-note{font-size:12px;line-height:1.65;color:var(--soft)}
+@media(max-width:850px){.challenge-layout{grid-template-columns:1fr}.adversarial-panel{order:5}}
