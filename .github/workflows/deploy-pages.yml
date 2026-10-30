@@ -47,6 +47,9 @@ jobs:
       - name: Smoke-test cross-runtime checkpoint parity
         run: node src/cross-runtime-cli.mjs > /dev/null
 
+      - name: Smoke-test v0.2.2 evidence and stress
+        run: node src/evidence-cli.mjs > /dev/null
+
       - name: Assemble minimal Pages artifact
         shell: bash
         run: |

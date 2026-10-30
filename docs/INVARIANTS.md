@@ -10,6 +10,10 @@
 
 **Cross-runtime replay:** The Node.js emitter produces v1 canonical checkpoints; the Python stdlib consumer checks integrity over the original payload bytes and preserves the v1 field/schema ordering. Python does not claim to regenerate JavaScript number spellings byte for byte. Mathematical parity uses independent operations and declared finite absolute/relative error budgets, never cross-runtime byte equality. Subprocesses have fixed argument lists, disabled shells, bounded input/output and no caller-controlled executable paths.
 
+**Observation provenance:** No clock, sensors or event data arise from the model by default. Every observed value is synthetic and explicitly injected; access is projected by a fixed role-to-channel allowlist. The SHA-256 event chain is tamper-evident for a *given* log, not a trusted signature; forged logs can be consistently rehashed. Source labels identify assertions only. Do not confuse elapsed time or a recorded assertion with causal interruption detection.
+
+**Boundary stress:** Fixed, inspectable float64 grids and finite absolute/relative tolerances. Underflow, phase aliasing and bitwise differences must be reported rather than recast as emergence. Python differential replay is checked with an explicit numerical tolerance and fixed executable path.
+
 **Evidence:** Distinguish identities, simulation outcomes, conjectures, and externally measured empirical evidence. Null comparisons are mandatory. Reproducing a known identity does not support an extraordinary inference.
 
 **Research and ethics:** No attribution of consciousness, sentience, or agency without independently defined operational evidence. Cite inspirations accurately; do not imply external endorsement.
