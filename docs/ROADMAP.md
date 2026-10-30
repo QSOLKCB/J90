@@ -18,11 +18,18 @@
 - Declared absolute/relative numeric comparison budgets and fail-closed control report CLI.
 - Interactive browser challenge panel, and test-gated Pages deployment.
 
-### v0.2.1+ — not yet implemented
+### v0.2.1 — independent cross-runtime replay (this PR)
 
-- Repeated checkpoint/resume across independent runtimes; document runtime-specific float and JSON behaviour.
+- 8 fixed Node.js ↔ Python stdlib scenarios with 40 integrity-checked checkpoints, 32 repeated replay segments and 112 comparisons.
+- Independent Python math integration, restored-state and resumed-state comparisons, error-budget sensitivity and JSON integrity/tampering tests.
+- Deterministic JSON report with SHA-256 manifest/report receipts. Node's JavaScript-specific JSON canonicalization remains authoritative for emitted checkpoints.
+- One test-gated existing GitHub Pages workflow configures Python 3.12 and runs cross-runtime parity; public site remains unchanged.
+
+### v0.2.2+ — remaining adversarial work
+
 - Controlled observation-access matrix with separate sensors, timestamps and event provenance.
-- Larger boundary sweeps, error-budget sensitivity and versioned evidence receipts.
+- Extended cross-platform differential runs and intentionally adversarial rounding/underflow sweeps; define any cross-language canonical JSON specification before implementing Python-issued checkpoints.
+- Larger boundary sweeps and independent published evidence archives.
 
 ## v0.3.x — nonlinear comparison
 
