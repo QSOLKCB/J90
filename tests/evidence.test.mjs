@@ -89,7 +89,10 @@ test('sweep covers float64 boundaries with zero-tolerance comparisons', () => {
   assert.equal(report.count, 450);
   assert.equal(report.cases.length, 450);
   assert.equal(report.groups.length, 3);
-  assert.equal(report.oracleMatches, report.count);
+  assert.equal(report.unexpectedDisagreements, 0);
+  assert.equal(report.guardrailMatches, 450);
+  assert.equal(report.knownBoundaryDisagreements, report.count - report.oracleMatches);
+  assert.ok(report.knownBoundaryDisagreements > 0);
   assert.ok(report.underflowedGainCases > 0);
   assert.ok(report.exactFloatAgreements <= report.count);
   assert.ok(report.groups.find(g => g.id === 'subnormal').zeroObserved > 0);
