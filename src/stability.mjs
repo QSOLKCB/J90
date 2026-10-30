@@ -1,7 +1,6 @@
 // J90 v0.3.1: real-axis bifurcation samples and finite-time derivative diagnostics.
 // This is a deterministic *numerical* experiment, not a proof of chaos, life or agency.
 import { state, checkedState, distance } from './core.mjs';
-import { quadraticStep } from './nonlinear.mjs';
 
 export const STABILITY_LIMITS = Object.freeze({
   minC: -2, maxC: 0.5, maxSamples: 64, maxBurnIn: 512, maxSteps: 320,
@@ -111,10 +110,12 @@ export function derivativeTrace({
   for (let i = 1; i <= steps; i++) {
     if (Math.hypot(z.x, z.y) > cutoff || Math.hypot(perturbed.x, perturbed.y) > cutoff) break;
     tangent = complexMultiply(state(2 * z.x, 2 * z.y), tangent);
-    // The linearized tangent and finite-difference trajectories are computed
-    // separately; the latter uses the existing quadratic engine.
-    z = quadraticStep(z, parameter);
-    perturbed = quadraticStep(perturbed, parameter);
+    // Calculate the finite-difference trajectory independently of the tangent.
+    // Internal states may exceed user-input coordinate bounds before escape.
+    const step = q => state(q.x * q.x - q.y * q.y + parameter.x,
+      2 * q.x * q.y + parameter.y);
+    z = step(z);
+    perturbed = step(perturbed);
     const norm = Math.hypot(tangent.x, tangent.y);
     const observed = distance(z, perturbed) / delta0;
     if (!Number.isFinite(norm) || !Number.isFinite(observed))
