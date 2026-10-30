@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="J90 — deterministic 90-degree quadrature and interruption laboratory">
+  <title>J90 | Orthogonal Oscillator Laboratory</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./src/browser.mjs"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./"><span class="mark">J<span>90</span></span><span class="brand-caption">QSOL-IMC / RESEARCH LAB</span></a>
+    <a class="source-link" href="https://github.com/QSOLKCB/J90">SOURCE ↗</a>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="signal"></span> EXPERIMENT 001 / QUADRATURE</div>
+      <h1>Rotation is real.<br><em>Awareness is a hypothesis.</em></h1>
+      <p>Two mathematical states in 90° quadrature. Freeze their logical time, preserve a checkpoint, and examine what can — and cannot — be inferred when they resume.</p>
+      <div class="formulas"><span>J = [0 −1; 1 0]</span><span>ds/dt = (ωJ − γI)s</span><span>J⁴ = I</span></div>
+    </section>
+    <section class="lab-grid">
+      <div class="panel plot-panel">
+        <div class="panel-heading"><span><b>01</b> PHASE SPACE</span><span class="tiny">UNIT CIRCLE / QUADRATURE</span></div>
+        <canvas id="orbit" width="600" height="600" role="img" aria-label="Rotating unit-circle phase vector and orthogonal axes"></canvas>
+        <div class="legend"><span><i class="c1"></i> State X</span><span><i class="c2"></i> State Y</span><span><i class="c3"></i> Resultant</span></div>
+      </div>
+      <div class="panel control-panel">
+        <div class="panel-heading"><span><b>02</b> PARAMETERS</span><span class="tiny">FINITE / DETERMINISTIC</span></div>
+        <div class="control"><label for="phase">Initial phase <output id="phase-value">45°</output></label><input id="phase" type="range" min="0" max="360" step="1" value="45"></div>
+        <div class="control"><label for="omega">Angular frequency <output id="omega-value">1.00</output></label><input id="omega" type="range" min="0" max="6.28" step=".01" value="1"></div>
+        <div class="control"><label for="damping">Damping coefficient <output id="damping-value">0.05</output></label><input id="damping" type="range" min="0" max="1" step=".01" value=".05"></div>
+        <div class="control"><label for="gap">Interrupted duration <output id="gap-value">2.0</output></label><input id="gap" type="range" min="0" max="10" step=".1" value="2"></div>
+        <button type="button" id="animate" aria-pressed="false">▶ ANIMATE PHASE</button>
+        <p class="hint">Adjust the model. This visualizer does not read wall-clock gaps or claim that mathematical persistence is consciousness.</p>
+        <div class="stats">
+          <div><span>Amplitude squared</span><strong id="energy">1.000000</strong></div>
+          <div><span>No-clock replay distance</span><strong id="replay">0.000000</strong></div>
+          <div><span>Continued evolution distance</span><strong id="continued">—</strong></div>
+        </div>
+      </div>
+      <div class="panel waveform-panel">
+        <div class="panel-heading"><span><b>03</b> TIME DOMAIN</span><span class="tiny">SINE / COSINE COMPONENTS</span></div>
+        <canvas id="wave" width="1100" height="340" role="img" aria-label="Sine and cosine oscillator signals with damping"></canvas>
+      </div>
+      <div class="panel explanation-panel">
+        <div class="panel-heading"><span><b>04</b> INTERRUPTION TEST</span><span class="tiny">BEFORE = 1 / AFTER = 1</span></div>
+        <p><strong>Paused arm:</strong> logical time does not advance during the gap. Restore the same state and feed the same inputs — it has no internal evidence that time passed.</p>
+        <p><strong>Continued arm:</strong> dynamics evolve during the gap. Different state is possible, not guaranteed; phase can alias. An independent clock reveals the specified gap.</p>
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+      </div>
+    </section>
+    <footer>INDEPENDENT EXPERIMENT • INSPIRED BY ROBERT DUMONT (@VOLTARDARK) • <a href="./docs/ATTRIBUTION.md">ATTRIBUTION &amp; LIMITS</a> • NO CONSCIOUSNESS CLAIM</footer>
+  </main>
+</body>
+</html>
