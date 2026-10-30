@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="./src/browser.mjs"></script>
   <script type="module" src="./src/fractal-browser.mjs"></script>
+  <script type="module" src="./src/stability-browser.mjs"></script>
 </head>
 <body>
   <header class="site-header">
@@ -110,6 +111,31 @@
             <div><span>Quadratic distance ratio</span><strong id="fractal-quadratic-ratio">2.010</strong></div>
           </div>
           <p class="hint" id="fractal-summary" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stability-section" aria-labelledby="stability-title">
+      <div class="eyebrow">EXPERIMENT 004 / REAL-AXIS DYNAMICS</div>
+      <h2 id="stability-title">Where periodicity changes.</h2>
+      <p>The real slice <code>x(n+1) = x(n)² + c</code> forms different late-orbit patterns as c varies. The plotted period candidates are finite-window numerical observations, not proofs of bifurcation or chaos.</p>
+      <div class="nonlinear-grid">
+        <div class="panel">
+          <div class="panel-heading"><span><b>08</b> FINITE-WINDOW BIFURCATION PLOT</span><span class="tiny">240 PARAMETERS / 32 TAIL SAMPLES</span></div>
+          <canvas id="stability-plot" width="640" height="300" role="img" aria-label="Late real quadratic orbit values plotted against parameter c"></canvas>
+          <p class="hint">Horizontal: c from −2 to 0.35. Vertical: late orbit values. Escaped cases have no plotted tail.</p>
+        </div>
+        <div class="panel stability-controls">
+          <div class="panel-heading"><span><b>09</b> PERIODICITY &amp; SENSITIVITY</span><span class="tiny">NO CONSCIOUSNESS CLAIM</span></div>
+          <label for="stability-c">Real parameter c <output id="stability-c-value">-1.000</output></label>
+          <input id="stability-c" type="range" min="-2" max="0.35" step=".001" value="-1">
+          <div class="stats">
+            <div><span>Period candidate</span><strong id="stability-period">—</strong></div>
+            <div><span>Escaped orbit</span><strong id="stability-escaped">—</strong></div>
+            <div><span>Parameter samples</span><strong id="stability-count">—</strong></div>
+            <div><span>Tangent / finite-difference error</span><strong id="stability-residual">—</strong></div>
+          </div>
+          <p class="hint" id="stability-explanation" aria-live="polite"></p>
         </div>
       </div>
     </section>

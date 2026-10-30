@@ -39,3 +39,15 @@ footer{padding:42px 0 0;text-align:center;line-height:2.1;color:#8398a9}footer a
 .fractal-controls .stats{margin:20px 0 0}
 .fractal-controls .hint{padding:10px 0 0}
 @media(max-width:850px){.nonlinear-grid{grid-template-columns:1fr}}
+
+
+.stability-section{margin-top:26px;border-top:1px solid var(--border);padding-top:36px}
+.stability-section h2{font-size:clamp(28px,4vw,43px);letter-spacing:-.035em;margin:16px 0}
+.stability-section>p{max-width:880px;color:var(--soft);line-height:1.7}
+#stability-plot{display:block;width:100%;max-width:640px;height:auto;background:#0b1420;margin:12px auto;aspect-ratio:640/300}
+.stability-controls{padding:0 24px 24px}
+.stability-controls .panel-heading{padding-left:0;padding-right:0}
+.stability-controls label{display:flex;justify-content:space-between;margin:18px 0 10px;font-size:13px;color:var(--soft)}
+.stability-controls output{font:600 14px ui-monospace,monospace;color:var(--text)}
+.stability-controls .stats{margin:24px 0 0}
+.stability-controls .hint{padding:12px 0 0}
