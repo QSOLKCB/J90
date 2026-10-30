@@ -1,4 +1,5 @@
 import { state, rotate, evolve, distance, energy } from './core.mjs';
+import { getNullModel, evaluateControl } from './adversarial.mjs';
 
 const $ = id => document.getElementById(id);
 const fields = ['phase', 'omega', 'damping', 'gap'];
@@ -81,6 +82,23 @@ function render() {
   drawOrbit(initial);
   drawWave(initial, omega, damping);
 }
+function renderNullControl() {
+  const scenario = getNullModel($('control-case').value || 'zero-gap');
+  const { id, initial, omega, damping, before, gap, after } = scenario;
+  const result = evaluateControl({ id, initial, omega, damping, before, gap, after });
+  const scientific = value => value.toExponential(5);
+  $('control-description').textContent = scenario.description;
+  $('control-observed').textContent = scientific(result.observedDistance);
+  $('control-expected').textContent = scientific(result.oracleDistance);
+  $('control-error').textContent = scientific(result.absoluteError);
+  $('control-status').textContent = result.matchesOracle ? 'ORACLE MATCH' : 'DISAGREEMENT';
+  $('control-meaning').textContent = result.observableDifference
+    ? 'A state difference is observable, but does not identify its cause or imply awareness.'
+    : 'No distinguishable difference within the stated numerical error budget. This is a null case, not evidence of awareness.';
+}
+$('control-case').addEventListener('change', renderNullControl);
+renderNullControl();
+
 for (const field of fields) $(field).addEventListener('input', () => {
   if (field === 'phase') phaseDegrees = Number($('phase').value);
   render();
