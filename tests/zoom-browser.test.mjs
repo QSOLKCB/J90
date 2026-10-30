@@ -5,6 +5,7 @@ test('precision explorer renders, zooms by pointer, drags, toggles mask and rese
   const previous = globalThis.document;
   const nodes = new Map();
   let renders = 0;
+  let lastImage = null;
   const ctx = {
     createImageData(width, height) {
       assert.equal(width, 176); assert.equal(height, 112);
@@ -13,6 +14,7 @@ test('precision explorer renders, zooms by pointer, drags, toggles mask and rese
     putImageData(value) {
       assert.equal(value.data.length, 176 * 112 * 4);
       renders++;
+      lastImage = Uint8ClampedArray.from(value.data);
     }
   };
   function node(id) {
@@ -60,7 +62,11 @@ test('precision explorer renders, zooms by pointer, drags, toggles mask and rese
     node('zoom-julia-real').value = '-0.4';
     node('zoom-julia-real').emit('input');
     assert.ok(renders > 5);
+    node('zoom-view').emit('keydown', {key:'Home'});
+    const homeImage = Uint8ClampedArray.from(lastImage);
     node('zoom-reset').emit('click');
+    assert.deepEqual(lastImage, homeImage,
+      'Home and Reset must preserve selected Julia slider parameters');
     assert.equal(Number(node('zoom-span').textContent), 3.2);
     node('zoom-overlay').emit('click');
     assert.equal(node('zoom-overlay').attributes['aria-pressed'], 'false');
