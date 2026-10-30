@@ -26,6 +26,21 @@ test('fixed sweep is deterministic with complete budget accounting', () => {
   assert.ok(a.rows.some(row => row.escaped));
   assert.ok(a.rows.some(row => !row.escaped));
 });
+test('real-axis sweep preserves exact validated endpoints at float64 boundaries', () => {
+  // This formerly rounded the last c to 0.5000000000000002 and threw.
+  for (const [cMin, cMax, steps] of [
+    [-1.7, 0.5, 241], [-2, 0.5, 2], [-2, 0.5, 320], [-1.7, 0.5, 3]
+  ]) {
+    const sweep = realAxisSweep({ cMin, cMax, steps });
+    assert.equal(sweep.rows.length, steps);
+    assert.equal(sweep.rows[0].c, cMin);
+    assert.equal(sweep.rows.at(-1).c, cMax);
+    assert.ok(sweep.rows.every(row => row.c >= cMin && row.c <= cMax));
+    assert.equal(sweep.escaped + sweep.notEscapedWithinBudget, steps);
+    assert.deepEqual(realAxisSweep({ cMin, cMax, steps }), sweep);
+  }
+});
+
 test('finite-time tangent and independent perturbation agree for stable probes', () => {
   const expanding = derivativeTrace({ initial: state(1,0), c: state(0,0), steps: 6 });
   assert.equal(expanding.rows.length, 6);
