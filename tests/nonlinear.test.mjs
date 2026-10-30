@@ -36,6 +36,11 @@ test('canonical Julia probes and escape convention', () => {
   assert.equal(alreadyOutside.iterations, 0);
   assert.equal(escapeTime({ model: 'julia', point: state(0, 0), c: state(-1, 0), maxIterations: 24 }).escaped, false);
 });
+test('large Julia parameters use a conservative escape radius rather than radius 2', () => {
+  const point = state(2.5, 0);
+  const result = escapeTime({ model: 'julia', point, c: state(-4, 0), maxIterations: 16 });
+  assert.notEqual(result.iterations, 0);
+});
 test('linear sensitivity stays 1 while quadratic Jacobian and amplification differ', () => {
   const report = compareSensitivity();
   assert.ok(Math.abs(report.linearRatio - 1) < 1e-12);
