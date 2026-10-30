@@ -26,9 +26,8 @@ export function pixelPoint(view, x, y) {
   finite(x, 'x'); finite(y, 'y');
   if (x < 0 || x > view.width || y < 0 || y > view.height)
     throw new RangeError('pixel coordinates outside viewport');
-  const pitch = view.span / view.width;
-  return state(view.centre.x + (x - view.width / 2) * pitch,
-    view.centre.y + (view.height / 2 - y) * pitch);
+  return state(view.centre.x + (x - view.width / 2) * view.span / view.width,
+    view.centre.y + (view.height / 2 - y) * view.span / view.width);
 }
 // Portable float64 ULP scale estimate (powers-of-two bins, subnormal clamp).
 function ulp(v) {
