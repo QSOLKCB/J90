@@ -73,10 +73,13 @@ export function precisionReport(view) {
     previousY = current;
   }
   const coordinateUlp = Math.max(ulp(view.centre.x), ulp(view.centre.y));
-  const ratio = pitch / coordinateUlp;
+  const rawRatio = pitch / coordinateUlp;
+  const ratioSaturated = !Number.isFinite(rawRatio);
+  const ratio = ratioSaturated ? Number.MAX_VALUE : rawRatio;
   const collided = duplicateX + duplicateY > 0;
   return {
     pitch, coordinateUlpEstimate: coordinateUlp, pixelPitchToUlp: ratio,
+    ratioSaturated,
     duplicateX, duplicateY, status: collided ? 'BLOCKED_COORDINATE_COLLISION'
       : ratio < 8 ? 'NEAR_FLOAT64_RESOLUTION' : 'RESOLVED',
     caveat: 'ULP is an approximate local float64 spacing indicator; collisions are tested with actual pixel coordinates, not inferred from this ratio.'
