@@ -18,6 +18,8 @@
 
 **Nonlinear stability:** Periodicity is a finite-tail candidate, never a certified bifurcation or chaos label. Analytic derivatives and finite perturbation ratios are compared only at bounded inputs/steps. The logarithmic gain is finite-time, not an asymptotic Lyapunov exponent; independent Python recurrence uses declared numeric tolerances.
 
+**Precision zoom:** Accept finite bounded viewport parameters and distinguishable adjacent Float64 pixel coordinates only. An approximate ULP spacing indicator is not a rigorous propagated error interval. Adaptive iteration caps and work budgets are mandatory. Quarter-pixel differences are numerical sampling sensitivity, not proof of chaos. Hash pixel buffers in explicitly specified little-endian encoding and never equate checksums with trusted evidence.
+
 **Evidence:** Distinguish identities, simulation outcomes, conjectures, and externally measured empirical evidence. Null comparisons are mandatory. Reproducing a known identity does not support an extraordinary inference.
 
 **Research and ethics:** No attribution of consciousness, sentience, or agency without independently defined operational evidence. Cite inspirations accurately; do not imply external endorsement.
