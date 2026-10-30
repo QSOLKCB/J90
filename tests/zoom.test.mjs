@@ -13,6 +13,9 @@ test('viewport mapping has a deterministic rectangular aspect ratio', () => {
   assert.equal(pixelPoint(v, 0, 12).x, v.centre.x - v.span / 2);
   assert.equal(pixelPoint(v, 16, 0).y, v.span * 24 / 32 / 2);
   assert.equal(precisionReport(v).status, 'RESOLVED');
+  const julia = precisionReport(defaultViewport('julia', 32, 24));
+  assert.equal(Number.isFinite(julia.pixelPitchToUlp), true);
+  assert.equal(julia.ratioSaturated, true);
   assert.equal(adaptiveIterations(v), 64);
 });
 test('zoom is anchored at the cursor, can pan and reset', () => {
