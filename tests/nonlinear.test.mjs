@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { state, rotate90, energy } from '../src/core.mjs';
 import { quadraticStep, complexRotate90, escapeTime, gridEscapeTimes,
-  compareSensitivity, NONLINEAR_LIMITS } from '../src/nonlinear.mjs';
+  compareSensitivity, NONLINEAR_LIMITS, NOT_ESCAPED } from '../src/nonlinear.mjs';
 
 test('90-degree operator satisfies J^2=-I, J^4=I and norm preservation', () => {
   let s = state(1, 2), t = s;
@@ -59,7 +59,16 @@ test('fixed deterministic grids preserve dimensions and differ by model', () => 
   assert.deepEqual(a.pixels, gridEscapeTimes({ ...opts, model: 'mandelbrot' }).pixels);
   assert.notDeepEqual(a.pixels, b.pixels);
   assert.equal(a.pixels.length, 1536);
+  assert.equal(a.pixels.filter(value => value === NOT_ESCAPED).length, a.notEscaped);
+  assert.equal(a.pixels.filter(value => value !== NOT_ESCAPED).length, a.escaped);
   assert.ok(a.escaped > 0 && a.notEscaped > 0 && b.escaped > 0 && b.notEscaped > 0);
+});
+test('escape at precisely the iteration cap is not mislabeled as non-escape', () => {
+  const grid = gridEscapeTimes({ model: 'mandelbrot', width: 200, height: 134, maxIterations: 64 });
+  assert.equal(grid.pixels.filter(value => value === NOT_ESCAPED).length, grid.notEscaped);
+  assert.equal(grid.pixels.filter(value => value !== NOT_ESCAPED).length, grid.escaped);
+  // Values equal to maxIterations represent an escape ON the final allowed iteration.
+  assert.ok(grid.pixels.some(value => value === 64));
 });
 test('model boundaries fail closed without guessing unavailable evidence', () => {
   assert.throws(() => escapeTime({ model: 'other', point: state(0, 0) }));
@@ -73,4 +82,5 @@ test('model boundaries fail closed without guessing unavailable evidence', () =>
   assert.throws(() => gridEscapeTimes({ model: 'julia', width: 321 }));
   assert.throws(() => gridEscapeTimes({ model: 'julia', span: 0 }));
   assert.throws(() => compareSensitivity({ epsilon: -1 }));
+  assert.throws(() => compareSensitivity({ epsilon: 1e-20 }), /resolution/);
 });
