@@ -56,4 +56,4 @@ The JSON report includes registry cases, the independent oracle, error budget, a
 - Endpoint aliasing does not imply lack of energy exchange, biological function, or absence/presence of experience.
 - False evidence (fabricated sensor readings or event reports) is beyond this mathematical model. Checkpoint SHA-256 tests integrity only.
 - The actual \`runProtocol\` checkpoint is Node-only; browser visualizations never pretend to execute cryptographic receipts.
-- This version does not implement Mandela/Julia sets, cross-runtime differential replay, or Robert Dumont's entire conjectured operator family. Those remain future, separately assessed hypotheses.
+- This version does not implement Mandelbrot/Julia sets, cross-runtime differential replay, or Robert Dumont's entire conjectured operator family. Those remain future, separately assessed hypotheses.
